@@ -14,6 +14,10 @@
 		040CA7EE1EC5550C0014D0D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040CA7EC1EC5550C0014D0D1 /* LaunchScreen.storyboard */; };
 		040CA7F91EC5550C0014D0D1 /* PRDiffrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040CA7F81EC5550C0014D0D1 /* PRDiffrTests.swift */; };
 		040CA8041EC5550C0014D0D1 /* PRDiffrUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040CA8031EC5550C0014D0D1 /* PRDiffrUITests.swift */; };
+		044F11C51EC55D94004C7F8D /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F11C41EC55D94004C7F8D /* Router.swift */; };
+		044F11C71EC55FBD004C7F8D /* ResponseObjectSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F11C61EC55FBD004C7F8D /* ResponseObjectSerializable.swift */; };
+		044F11C91EC56312004C7F8D /* ResponseCollectionSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F11C81EC56312004C7F8D /* ResponseCollectionSerializable.swift */; };
+		044F11CB1EC5679D004C7F8D /* BackendError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F11CA1EC5679D004C7F8D /* BackendError.swift */; };
 		55887995670A01233446B761 /* Pods_PRDiffrTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E84B22E3E73E20FF88C640 /* Pods_PRDiffrTests.framework */; };
 		B67C51D6B1F9CB72D2CDD3A1 /* Pods_PRDiffr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 207678FA889EFD8ADD2F4442 /* Pods_PRDiffr.framework */; };
 		F0887A410C6711893BF2977C /* Pods_PRDiffrUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA32EF798082D8D3F3A2A23D /* Pods_PRDiffrUITests.framework */; };
@@ -50,6 +54,10 @@
 		040CA7FF1EC5550C0014D0D1 /* PRDiffrUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PRDiffrUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		040CA8031EC5550C0014D0D1 /* PRDiffrUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PRDiffrUITests.swift; sourceTree = "<group>"; };
 		040CA8051EC5550C0014D0D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		044F11C41EC55D94004C7F8D /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		044F11C61EC55FBD004C7F8D /* ResponseObjectSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseObjectSerializable.swift; sourceTree = "<group>"; };
+		044F11C81EC56312004C7F8D /* ResponseCollectionSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseCollectionSerializable.swift; sourceTree = "<group>"; };
+		044F11CA1EC5679D004C7F8D /* BackendError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackendError.swift; sourceTree = "<group>"; };
 		207678FA889EFD8ADD2F4442 /* Pods_PRDiffr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PRDiffr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		465594648AB543DDBA8F7C0E /* Pods-PRDiffrUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PRDiffrUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PRDiffrUITests/Pods-PRDiffrUITests.release.xcconfig"; sourceTree = "<group>"; };
 		4F1E411E120F2C6882B06E45 /* Pods-PRDiffrTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PRDiffrTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PRDiffrTests/Pods-PRDiffrTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -114,6 +122,8 @@
 		040CA7E21EC5550C0014D0D1 /* PRDiffr */ = {
 			isa = PBXGroup;
 			children = (
+				044F11C31EC55BE7004C7F8D /* Models */,
+				044F11C21EC55BD6004C7F8D /* Networking */,
 				040CA7E31EC5550C0014D0D1 /* AppDelegate.swift */,
 				040CA7E51EC5550C0014D0D1 /* ViewController.swift */,
 				040CA7E71EC5550C0014D0D1 /* Main.storyboard */,
@@ -140,6 +150,24 @@
 				040CA8051EC5550C0014D0D1 /* Info.plist */,
 			);
 			path = PRDiffrUITests;
+			sourceTree = "<group>";
+		};
+		044F11C21EC55BD6004C7F8D /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				044F11CA1EC5679D004C7F8D /* BackendError.swift */,
+				044F11C81EC56312004C7F8D /* ResponseCollectionSerializable.swift */,
+				044F11C61EC55FBD004C7F8D /* ResponseObjectSerializable.swift */,
+				044F11C41EC55D94004C7F8D /* Router.swift */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
+		044F11C31EC55BE7004C7F8D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		C2AEB8C9B9C07F68D2AD3F18 /* Frameworks */ = {
@@ -446,7 +474,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				044F11C71EC55FBD004C7F8D /* ResponseObjectSerializable.swift in Sources */,
 				040CA7E61EC5550C0014D0D1 /* ViewController.swift in Sources */,
+				044F11C91EC56312004C7F8D /* ResponseCollectionSerializable.swift in Sources */,
+				044F11CB1EC5679D004C7F8D /* BackendError.swift in Sources */,
+				044F11C51EC55D94004C7F8D /* Router.swift in Sources */,
 				040CA7E41EC5550C0014D0D1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -700,6 +732,7 @@
 				040CA80A1EC5550C0014D0D1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		040CA80B1EC5550C0014D0D1 /* Build configuration list for PBXNativeTarget "PRDiffrTests" */ = {
 			isa = XCConfigurationList;
@@ -708,6 +741,7 @@
 				040CA80D1EC5550C0014D0D1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		040CA80E1EC5550C0014D0D1 /* Build configuration list for PBXNativeTarget "PRDiffrUITests" */ = {
 			isa = XCConfigurationList;
@@ -716,6 +750,7 @@
 				040CA8101EC5550C0014D0D1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
