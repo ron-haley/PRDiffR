@@ -9,19 +9,25 @@
 import Alamofire
 
 enum Router: URLRequestConvertible {
-    static let baseURL = ""
+    static let baseURL = "https://api.github.com"
+    
+    // Temporary hard coded repo owner and repo name.
+    static let repo = "MagicalRecord"
+    static let repoOwner = "magicalpanda"
+    
+    case getPullRequests
     
     var method: HTTPMethod {
         switch self {
-        default:
+        case .getPullRequests:
             return .get
         }
     }
     
     var path: String {
         switch self {
-        default:
-            return ""
+        case .getPullRequests:
+            return "/repos/\(Router.repoOwner)/\(Router.repo)/pulls"
         }
     }
     
