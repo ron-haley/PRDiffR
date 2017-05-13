@@ -18,6 +18,7 @@ public extension String {
     var toDate: Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = Date.GITHUB_DATE_FORMAT
+        dateFormatter.locale = Locale(identifier: "en_US")
         return dateFormatter.date(from: self)
     }
 }

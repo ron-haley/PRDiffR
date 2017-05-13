@@ -20,7 +20,6 @@ struct PRCell {
         return "#\(number)"
     }
     
-    // TODO: Finish method
     func openDescription() -> String {
         switch (openDate, userName) {
         case let (.some(openDate), .some(userName)):
