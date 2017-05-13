@@ -15,6 +15,8 @@ class PRTableViewController: UITableViewController {
     var pullRequests: [PullRequest]!
     var pullRequestState: PullRequest.State!
 
+    @IBOutlet weak var prStatusSegmentedControl: UISegmentedControl!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,7 +26,7 @@ class PRTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         pullRequests = [PullRequest]()
-        pullRequestState = PullRequest.State.open
+        pullRequestState = .open
         fetchPullRequests()
     }
 
@@ -103,6 +105,20 @@ class PRTableViewController: UITableViewController {
     }
     */
 
+    @IBAction func prStatusChanged(_ sender: Any) {
+        switch prStatusSegmentedControl.selectedSegmentIndex {
+        case 0:
+            pullRequestState = .open
+            fetchPullRequests()
+        case 1:
+            pullRequestState = .close
+            fetchPullRequests()
+        case 2:
+            pullRequestState = .all
+            fetchPullRequests()
+        default: break
+        }
+    }
 }
 
 // MARK: PRTableViewController private methods
@@ -111,6 +127,7 @@ extension PRTableViewController {
 
     fileprivate func fetchPullRequests() {
         let parameters: [String: Any] = ["state": pullRequestState.rawValue]
+        pullRequests.removeAll()
         PullRequest.getPullRequests(parameters: parameters) { response in
             switch response.result {
             case .success:

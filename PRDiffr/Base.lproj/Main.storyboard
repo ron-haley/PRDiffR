@@ -50,9 +50,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <segmentedControl key="tableHeaderView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="bA9-c1-tHX">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Open"/>
+                                <segment title="Closed"/>
+                                <segment title="All"/>
+                            </segments>
+                            <color key="tintColor" red="0.33958252570000003" green="0.15907557259999999" blue="0.71077724360000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="prStatusChanged:" destination="DjW-Oc-L5M" eventType="valueChanged" id="YwX-Rt-9fI"/>
+                            </connections>
+                        </segmentedControl>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="PRTableViewCell" rowHeight="70" id="t2v-JC-t7t" customClass="PRTableViewCell" customModule="PRDiffr" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="70"/>
+                                <rect key="frame" x="0.0" y="58" width="375" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="t2v-JC-t7t" id="3iM-gA-Fcq">
                                     <rect key="frame" x="0.0" y="0.0" width="342" height="69.5"/>
@@ -113,6 +126,9 @@
                             <outlet property="delegate" destination="DjW-Oc-L5M" id="WIG-1Y-X42"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="prStatusSegmentedControl" destination="bA9-c1-tHX" id="SQh-tx-dKD"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ouv-qV-hFM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
