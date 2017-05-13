@@ -30,6 +30,7 @@
 		048EFDD51EC6CFCA00E554D9 /* PullRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EFDD41EC6CFCA00E554D9 /* PullRequestTests.swift */; };
 		04D9322A1EC7752E0054F3A7 /* PRTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D932291EC7752E0054F3A7 /* PRTableViewController.swift */; };
 		04D9322D1EC7772A0054F3A7 /* PRTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D9322C1EC7772A0054F3A7 /* PRTableViewCell.swift */; };
+		04D9322F1EC7ABA50054F3A7 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D9322E1EC7ABA50054F3A7 /* UIColor+Extensions.swift */; };
 		55887995670A01233446B761 /* Pods_PRDiffrTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E84B22E3E73E20FF88C640 /* Pods_PRDiffrTests.framework */; };
 		B67C51D6B1F9CB72D2CDD3A1 /* Pods_PRDiffr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 207678FA889EFD8ADD2F4442 /* Pods_PRDiffr.framework */; };
 		F0887A410C6711893BF2977C /* Pods_PRDiffrUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA32EF798082D8D3F3A2A23D /* Pods_PRDiffrUITests.framework */; };
@@ -82,6 +83,7 @@
 		048EFDD41EC6CFCA00E554D9 /* PullRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullRequestTests.swift; sourceTree = "<group>"; };
 		04D932291EC7752E0054F3A7 /* PRTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PRTableViewController.swift; sourceTree = "<group>"; };
 		04D9322C1EC7772A0054F3A7 /* PRTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PRTableViewCell.swift; sourceTree = "<group>"; };
+		04D9322E1EC7ABA50054F3A7 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		207678FA889EFD8ADD2F4442 /* Pods_PRDiffr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PRDiffr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		465594648AB543DDBA8F7C0E /* Pods-PRDiffrUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PRDiffrUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PRDiffrUITests/Pods-PRDiffrUITests.release.xcconfig"; sourceTree = "<group>"; };
 		4F1E411E120F2C6882B06E45 /* Pods-PRDiffrTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PRDiffrTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PRDiffrTests/Pods-PRDiffrTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 			children = (
 				048EFDBF1EC65B3300E554D9 /* Date+Extensions.swift */,
 				048EFDC11EC65BEB00E554D9 /* String+Extensions.swift */,
+				04D9322E1EC7ABA50054F3A7 /* UIColor+Extensions.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 				048EFDC21EC65BEB00E554D9 /* String+Extensions.swift in Sources */,
 				044F11C71EC55FBD004C7F8D /* ResponseObjectSerializable.swift in Sources */,
 				040CA7E61EC5550C0014D0D1 /* ViewController.swift in Sources */,
+				04D9322F1EC7ABA50054F3A7 /* UIColor+Extensions.swift in Sources */,
 				048EFDC01EC65B3300E554D9 /* Date+Extensions.swift in Sources */,
 				048EFDBD1EC655F100E554D9 /* PullRequest.swift in Sources */,
 				044F11C91EC56312004C7F8D /* ResponseCollectionSerializable.swift in Sources */,

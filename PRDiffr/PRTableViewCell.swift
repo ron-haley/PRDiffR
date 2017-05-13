@@ -14,6 +14,7 @@ class PRTableViewCell: UITableViewCell {
     @IBOutlet weak var prTitleLabel: UILabel!
     @IBOutlet weak var prNumberLabel: UILabel!
     @IBOutlet weak var prOpenedLabel: UILabel!
+    @IBOutlet weak var prIcon: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,5 +31,7 @@ class PRTableViewCell: UITableViewCell {
         self.prTitleLabel.text = cell.title
         self.prNumberLabel.text = cell.numberString()
         self.prOpenedLabel.text = cell.openDescription()
+
+        self.prIcon.tintColor = UIColor.darkGreen()
     }
 }
