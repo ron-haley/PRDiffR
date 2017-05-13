@@ -44,6 +44,7 @@ class PullRequestTests: XCTestCase {
         XCTAssertEqual(pullRequest?.title, json.first!["title"] as? String)
         XCTAssertEqual(pullRequest?.number, json.first!["number"] as? Int)
         XCTAssertEqual(pullRequest?.body, json.first!["body"] as? String)
+        // TODO: Test date conversions
     }
 
     func testCollection() {

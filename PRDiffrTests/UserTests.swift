@@ -44,5 +44,6 @@ class UserTests: XCTestCase {
         XCTAssertEqual(user?.email, json["email"] as? String)
         XCTAssertEqual(user?.id, json["id"] as? Int)
         XCTAssertEqual(user?.avatarUrl, json["avatar_url"] as? String)
+        // TODO: Test Date conversions
     }
 }
