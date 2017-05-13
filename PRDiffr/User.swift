@@ -8,6 +8,8 @@
 
 import Foundation
 
+// MARK: Model
+
 final class User: ResponseObjectSerializable, ResponseCollectionSerializable {
 
     var login: String?

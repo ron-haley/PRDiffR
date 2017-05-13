@@ -9,6 +9,8 @@
 import Foundation
 import Alamofire
 
+// MARK: Model
+
 final class PullRequest: ResponseObjectSerializable, ResponseCollectionSerializable {
 
     var id: Int?
@@ -139,6 +141,14 @@ final class PullRequest: ResponseObjectSerializable, ResponseCollectionSerializa
         }
     }
 
+
+    /**
+        Fetches PullRequest from GitHub
+        - parameter completionHandler: Callback for proccessing the response
+        
+        - Note: currently hardcoded for only one owner and one repo see Router.swift
+        - TODO: Allow for query parameters to allow for filtering, pagination, etc.
+    */
     static func getPullRequests(completionHandler: @escaping (_ response: DataResponse<[PullRequest]>) -> Void) {
         Alamofire.request(Router.getPullRequests)
             .responseCollection { (response: DataResponse<[PullRequest]>) in

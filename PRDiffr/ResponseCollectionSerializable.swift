@@ -8,6 +8,11 @@
 
 import Alamofire
 
+/**
+        Custom Response Object
+        - usage can be found in Alamofire doc:
+        - https://github.com/Alamofire/Alamofire#generic-response-object-serialization
+ */
 protocol ResponseCollectionSerializable {
     static func collection(from response: HTTPURLResponse, withRepresentation representation: Any) -> [Self]
 }
