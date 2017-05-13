@@ -13,6 +13,7 @@ class PRTableViewController: UITableViewController {
     // MARK: Properties
     let cellIdentifier = "PRTableViewCell"
     var pullRequests: [PullRequest]!
+    var pullRequestState: PullRequest.State!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,7 @@ class PRTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         pullRequests = [PullRequest]()
+        pullRequestState = PullRequest.State.open
         fetchPullRequests()
     }
 
@@ -52,10 +54,7 @@ class PRTableViewController: UITableViewController {
         }
 
         let pullRequest = pullRequests[indexPath.row]
-        let prCell = PRCell(title: pullRequest.title,
-                            number: pullRequest.number,
-                            createdAt: pullRequest.createdAt)
-        cell.configureCell(cell: prCell)
+        cell.configureCell(cell: pullRequest.prCell())
         return cell
     }
 
@@ -111,7 +110,8 @@ class PRTableViewController: UITableViewController {
 extension PRTableViewController {
 
     fileprivate func fetchPullRequests() {
-        PullRequest.getPullRequests { response in
+        let parameters: [String: Any] = ["state": pullRequestState.rawValue]
+        PullRequest.getPullRequests(parameters: parameters) { response in
             switch response.result {
             case .success:
                 if let pullRequests = response.result.value {

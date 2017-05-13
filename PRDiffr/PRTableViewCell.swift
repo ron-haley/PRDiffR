@@ -8,25 +8,6 @@
 
 import UIKit
 
-struct PRCell {
-    var title: String?
-    var number: Int?
-    var createdAt: Date?
-
-    func numberString() -> String {
-        guard let number = number else {
-            return ""
-        }
-
-        return "#\(number)"
-    }
-
-    // TODO: Finish method
-    func openDescription() -> String {
-        return ""
-    }
-}
-
 class PRTableViewCell: UITableViewCell {
 
     // MARK: Properties

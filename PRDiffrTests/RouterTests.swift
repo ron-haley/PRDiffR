@@ -39,7 +39,8 @@ class RouterTests: XCTestCase {
 
     func testGetPullRequests() {
         let prUrl = "/repos/\(repoOwner)/\(repo)/pulls"
-        let router = Router.getPullRequests
+        let params: [String: Any] = [:]
+        let router = Router.getPullRequests(params)
 
         XCTAssertEqual(router.method, HTTPMethod.get)
         XCTAssertEqual(router.path, prUrl)

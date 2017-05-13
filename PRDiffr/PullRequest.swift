@@ -9,9 +9,40 @@
 import Foundation
 import Alamofire
 
+struct PRCell {
+    var title: String?
+    var number: Int?
+    var openDate: String?
+    var userName: String?
+    
+    func numberString() -> String {
+        guard let number = number else { return "" }
+        return "#\(number)"
+    }
+    
+    // TODO: Finish method
+    func openDescription() -> String {
+        switch (openDate, userName) {
+        case let (.some(openDate), .some(userName)):
+            return "opened on \(openDate) by \(userName)"
+        case let (.some(openDate), .none):
+            return "opened on \(openDate)"
+        case let (.none, .some(userName)):
+            return "opened by \(userName)"
+        default:
+            return ""
+        }
+    }
+}
+
 // MARK: Model
 
 final class PullRequest: ResponseObjectSerializable, ResponseCollectionSerializable {
+    enum State: String {
+        case open
+        case close
+        case all
+    }
 
     var id: Int?
     var url: String?
@@ -104,7 +135,7 @@ final class PullRequest: ResponseObjectSerializable, ResponseCollectionSerializa
             self.body = body
         }
 
-        if let assigneeRepresentation = representation["assignee"] as? [[String: Any]] {
+        if let assigneeRepresentation = representation["assignee"] as? [String: Any] {
             self.assignee = User(response: response, representation: assigneeRepresentation)
         }
 
@@ -136,21 +167,28 @@ final class PullRequest: ResponseObjectSerializable, ResponseCollectionSerializa
             }
         }
 
-        if let userRepresentation = representation["user"] as? [[String: Any]] {
+        if let userRepresentation = representation["user"] as? [String: Any] {
+            print(userRepresentation)
             self.user = User(response: response, representation: userRepresentation)
         }
     }
 
+    func prCell() -> PRCell {
+        return PRCell(title: title,
+                      number: number,
+                      openDate: updatedAt?.toReadableString,
+                      userName: user?.login)
+    }
 
     /**
         Fetches PullRequest from GitHub
+        - parameter paramters: [String: Any]  filtering parameters
         - parameter completionHandler: Callback for proccessing the response
         
         - Note: currently hardcoded for only one owner and one repo see Router.swift
-        - TODO: Allow for query parameters to allow for filtering, pagination, etc.
     */
-    static func getPullRequests(completionHandler: @escaping (_ response: DataResponse<[PullRequest]>) -> Void) {
-        Alamofire.request(Router.getPullRequests)
+    static func getPullRequests(parameters: [String: Any], completionHandler: @escaping (_ response: DataResponse<[PullRequest]>) -> Void) {
+        Alamofire.request(Router.getPullRequests(parameters))
             .responseCollection { (response: DataResponse<[PullRequest]>) in
                 completionHandler(response)
             }

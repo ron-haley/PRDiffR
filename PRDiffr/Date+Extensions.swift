@@ -16,4 +16,10 @@ public extension Date {
         dateFormatter.dateFormat = Date.GITHUB_DATE_FORMAT
         return dateFormatter.string(from: self)
     }
+
+    var toReadableString: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.long
+        return dateFormatter.string(from: self)
+    }
 }

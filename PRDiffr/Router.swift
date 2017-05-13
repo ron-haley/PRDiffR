@@ -15,7 +15,7 @@ enum Router: URLRequestConvertible {
     static let repo = "MagicalRecord"
     static let repoOwner = "magicalpanda"
     
-    case getPullRequests
+    case getPullRequests([String: Any])
     
     var method: HTTPMethod {
         switch self {
@@ -38,8 +38,8 @@ enum Router: URLRequestConvertible {
         urlRequest.httpMethod = method.rawValue
         
         switch self {
-        default:
-            break
+        case .getPullRequests(let parameters):
+            urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
         }
         
         return urlRequest
