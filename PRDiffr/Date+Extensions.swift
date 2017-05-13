@@ -9,7 +9,7 @@
 import Foundation
 
 public extension Date {
-    static let GITHUB_DATE_FORMAT = "YYYY-MM-DDTHH:MM:SSZ"
+    static let GITHUB_DATE_FORMAT = "YYYY-MM-DD'T'HH:MM:SSZ"
 
     var toString: String {
         let dateFormatter = DateFormatter()
