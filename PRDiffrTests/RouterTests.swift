@@ -48,4 +48,28 @@ class RouterTests: XCTestCase {
         let url = URL(string: "\(githubBaseURL)\(prUrl)")
         XCTAssertEqual(router.urlRequest?.url!, url!)
     }
+
+    func testGetPRComments() {
+        let prNumber = 12345
+        let prUrl = "/repos/\(repoOwner)/\(repo)/pulls/\(prNumber)/comments"
+        let router = Router.getPRComments(prNumber)
+
+        XCTAssertEqual(router.method, HTTPMethod.get)
+        XCTAssertEqual(router.path, prUrl)
+
+        let url = URL(string: "\(githubBaseURL)\(prUrl)")
+        XCTAssertEqual(router.urlRequest?.url!, url!)
+    }
+
+    func testPRCommits() {
+        let prNumber = 12345
+        let prUrl = "/repos/\(repoOwner)/\(repo)/pulls/\(prNumber)/commits"
+        let router = Router.getPRCommits(prNumber)
+        
+        XCTAssertEqual(router.method, HTTPMethod.get)
+        XCTAssertEqual(router.path, prUrl)
+        
+        let url = URL(string: "\(githubBaseURL)\(prUrl)")
+        XCTAssertEqual(router.urlRequest?.url!, url!)
+    }
 }

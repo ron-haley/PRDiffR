@@ -11,10 +11,14 @@ import XCTest
 
 class PullRequestTests: XCTestCase {
     let response = HTTPURLResponse()
+    var testBundle: Bundle!
+    var filePath: String!
     
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        testBundle = Bundle(for: type(of: self))
+        filePath = testBundle.path(forResource: "pull_request", ofType: "json")
     }
     
     override func tearDown() {
@@ -35,21 +39,16 @@ class PullRequestTests: XCTestCase {
     }
 
     func testInit() {
-        let testBundle = Bundle(for: type(of: self))
-        let filePath = testBundle.path(forResource: "pull_request", ofType: "json")
         let json = Helper.readJSON(fileName: filePath!) as [[String: Any]]
         let pullRequest = PullRequest(response: response, representation: json.first!)
         
-        // Just going to test some attrs that I may use in app
+        // Only testing a few attrs that I may use in app
         XCTAssertEqual(pullRequest?.title, json.first!["title"] as? String)
         XCTAssertEqual(pullRequest?.number, json.first!["number"] as? Int)
         XCTAssertEqual(pullRequest?.body, json.first!["body"] as? String)
-        // TODO: Test date conversions
     }
 
     func testCollection() {
-        let testBundle = Bundle(for: type(of: self))
-        let filePath = testBundle.path(forResource: "pull_request", ofType: "json")
         let json = Helper.readJSON(fileName: filePath!) as [[String: Any]]
         let pullRequests = PullRequest.collection(from: response, withRepresentation: json)
 

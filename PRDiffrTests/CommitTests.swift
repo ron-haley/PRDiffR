@@ -1,15 +1,15 @@
 //
-//  UserTests.swift
+//  CommitTests.swift
 //  PRDiffr
 //
-//  Created by Ronald Haley on 5/12/17.
+//  Created by Ronald Haley on 5/13/17.
 //  Copyright © 2017 Ronald Haley. All rights reserved.
 //
 
 import XCTest
 @testable import PRDiffr
 
-class UserTests: XCTestCase {
+class CommitTests: XCTestCase {
     let response = HTTPURLResponse()
     var testBundle: Bundle!
     var filePath: String!
@@ -18,7 +18,7 @@ class UserTests: XCTestCase {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         testBundle = Bundle(for: type(of: self))
-        filePath = testBundle.path(forResource: "user", ofType: "json")
+        filePath = testBundle.path(forResource: "commit", ofType: "json")
     }
     
     override func tearDown() {
@@ -39,12 +39,19 @@ class UserTests: XCTestCase {
     }
 
     func testInit() {
-        let json = Helper.readJSON(fileName: filePath!) as [String: Any]
-        let user = User(response: response, representation: json)
-
+        let json = Helper.readJSON(fileName: filePath!) as [[String: Any]]
+        let commit = Commit(response: response, representation: json.first!)
+        
         // Only testing a few attrs that I may use in app
-        XCTAssertEqual(user?.email, json["email"] as? String)
-        XCTAssertEqual(user?.id, json["id"] as? Int)
-        XCTAssertEqual(user?.avatarUrl, json["avatar_url"] as? String)
+        XCTAssertNotNil(commit?.email)
+        XCTAssertNotNil(commit?.message)
+        XCTAssertNotNil(commit?.name)
+    }
+    
+    func testCollection() {
+        let json = Helper.readJSON(fileName: filePath!) as [[String: Any]]
+        let commits = Commit.collection(from: response, withRepresentation: json)
+        
+        XCTAssertTrue(commits.count == 1)
     }
 }
