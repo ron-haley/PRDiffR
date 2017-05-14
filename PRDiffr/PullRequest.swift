@@ -167,7 +167,6 @@ final class PullRequest: ResponseObjectSerializable, ResponseCollectionSerializa
         }
 
         if let userRepresentation = representation["user"] as? [String: Any] {
-            print(userRepresentation)
             self.user = User(response: response, representation: userRepresentation)
         }
     }

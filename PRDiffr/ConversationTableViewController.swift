@@ -7,8 +7,16 @@
 //
 
 import UIKit
+import Alamofire
 
 class ConversationTableViewController: UITableViewController {
+
+    // MARK: Properties
+    let cellIdentifier = "CommentTableViewCell"
+    var prNumber: Int?
+    var comments: [Comment]!
+
+    @IBOutlet weak var emptyLabelView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +26,13 @@ class ConversationTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        comments = [Comment]()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super .viewWillAppear(animated)
+
+        fetchComments()
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,23 +44,26 @@ class ConversationTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return comments.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        guard
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier,
+                                                     for: indexPath) as? CommentTableViewCell
+            else {
+                return UITableViewCell()
+        }
+        
+        let comment = comments[indexPath.row]
+        cell.configureCell(commentCell: comment.commentCell())
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -92,4 +110,29 @@ class ConversationTableViewController: UITableViewController {
     }
     */
 
+}
+
+extension ConversationTableViewController {
+    fileprivate func fetchComments() {
+        guard let number = prNumber else { return }
+
+        comments.removeAll()
+        self.emptyLabelView.isHidden = true
+
+        Comment.getComments(prNumber: number) { response in
+            switch response.result {
+            case .success:
+                if let comments = response.result.value {
+                    if comments.isEmpty {
+                        self.emptyLabelView.isHidden = false
+                    } else {
+                        self.comments = comments
+                        self.tableView.reloadData()
+                    }
+                }
+            case .failure:
+                print("error occurred while fetching data")
+            }
+        }
+    }
 }

@@ -31,6 +31,14 @@ class PRDetailsViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        guard
+            let conversationVC = storyboard?.instantiateViewController(withIdentifier: "ConversationTableViewController") as? ConversationTableViewController,
+            let commitVC = storyboard?.instantiateViewController(withIdentifier: "CommitTableViewController") as? CommitTableViewController
+        else { return }
+
+        conversationViewController = conversationVC
+        commitViewController = commitVC
         setupView()
     }
 
@@ -70,6 +78,7 @@ extension PRDetailsViewController {
         if let vc = selectedViewController {
             addChildViewController(vc)
             vc.view.frame = prDetailsContainerView.bounds
+            prDetailsContainerView.addSubview(vc.view)
             vc.didMove(toParentViewController: self)
         }
     }
@@ -90,7 +99,11 @@ extension PRDetailsViewController {
         else { return }
         
         title = "#\(prNumber)"
+        conversationViewController.prNumber = prNumber
+
         prTitleLabel.text = prTitle
         prNumberLabel.text = "#\(prNumber)"
+
+        selectedViewController = conversationViewController
     }
 }

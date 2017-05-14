@@ -16,10 +16,11 @@ enum Router: URLRequestConvertible {
     static let repoOwner = "magicalpanda"
     
     case getPullRequests([String: Any])
+    case getPRComments(Int)
     
     var method: HTTPMethod {
         switch self {
-        case .getPullRequests:
+        case .getPullRequests, .getPRComments:
             return .get
         }
     }
@@ -28,6 +29,8 @@ enum Router: URLRequestConvertible {
         switch self {
         case .getPullRequests:
             return "/repos/\(Router.repoOwner)/\(Router.repo)/pulls"
+        case .getPRComments(let prNumber):
+            return "/repos/\(Router.repoOwner)/\(Router.repo)/pulls/\(prNumber)/comments"
         }
     }
     
@@ -40,6 +43,8 @@ enum Router: URLRequestConvertible {
         switch self {
         case .getPullRequests(let parameters):
             urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
+        case .getPRComments:
+            urlRequest = try URLEncoding.default.encode(urlRequest, with: nil)
         }
         
         return urlRequest
