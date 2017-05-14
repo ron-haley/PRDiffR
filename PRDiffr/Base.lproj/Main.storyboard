@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -67,7 +68,7 @@
                                     <action selector="prStatusChanged:" destination="OBH-28-LLt" eventType="valueChanged" id="MOK-b8-E8q"/>
                                 </connections>
                             </segmentedControl>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="54" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ts6-It-g2H">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="54" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ts6-It-g2H">
                                 <rect key="frame" x="0.0" y="93" width="375" height="574"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -137,18 +138,152 @@
                     <connections>
                         <outlet property="prStatusSegmentedControl" destination="YPO-0m-c7s" id="XOB-KT-sxD"/>
                         <outlet property="prTableView" destination="Ts6-It-g2H" id="STg-EJ-XP4"/>
+                        <segue destination="HyI-oW-WTf" kind="show" identifier="PRDetailsSegue" id="ohA-t0-lOX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Re0-24-YZ2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1986" y="92"/>
         </scene>
+        <!--Details View Controller-->
+        <scene sceneID="ftc-cU-aH3">
+            <objects>
+                <viewController storyboardIdentifier="PRDetailsViewController" id="HyI-oW-WTf" customClass="PRDetailsViewController" customModule="PRDiffr" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mgw-QK-PL4"/>
+                        <viewControllerLayoutGuide type="bottom" id="RXI-F6-edn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4i1-M1-LSJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dXN-P4-7yH">
+                                <rect key="frame" x="16" y="72" width="0.0" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="yzF-gS-IwB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FaT-Yx-Cv0">
+                                <rect key="frame" x="24.5" y="72" width="334.5" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="sQB-9O-ouw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="oaj-85-lxT">
+                                <rect key="frame" x="-2" y="120" width="379" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="g9L-Rq-E9S"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Conversation"/>
+                                    <segment title="Commits"/>
+                                    <segment title="Files Changed"/>
+                                </segments>
+                                <color key="tintColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="prDetailsChanged:" destination="HyI-oW-WTf" eventType="valueChanged" id="7ff-lA-fuG"/>
+                                </connections>
+                            </segmentedControl>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Xx-Fv-eMx">
+                                <rect key="frame" x="0.0" y="149" width="375" height="518"/>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="oaj-85-lxT" firstAttribute="leading" secondItem="4i1-M1-LSJ" secondAttribute="leading" constant="-2" id="0Of-QL-HZp"/>
+                            <constraint firstItem="3Xx-Fv-eMx" firstAttribute="top" secondItem="oaj-85-lxT" secondAttribute="bottom" constant="1" id="81R-nb-GUX"/>
+                            <constraint firstItem="dXN-P4-7yH" firstAttribute="top" secondItem="mgw-QK-PL4" secondAttribute="bottom" constant="8" id="82h-Rr-I3N"/>
+                            <constraint firstItem="dXN-P4-7yH" firstAttribute="leading" secondItem="4i1-M1-LSJ" secondAttribute="leadingMargin" id="C4s-t1-ytY"/>
+                            <constraint firstItem="oaj-85-lxT" firstAttribute="top" secondItem="FaT-Yx-Cv0" secondAttribute="bottom" constant="8" id="FV2-Ng-TJh"/>
+                            <constraint firstAttribute="trailing" secondItem="FaT-Yx-Cv0" secondAttribute="trailing" constant="16" id="Hx8-Xo-aSu"/>
+                            <constraint firstAttribute="trailing" secondItem="3Xx-Fv-eMx" secondAttribute="trailing" id="PHL-We-wBn"/>
+                            <constraint firstItem="RXI-F6-edn" firstAttribute="top" secondItem="3Xx-Fv-eMx" secondAttribute="bottom" id="QHO-sf-xcw"/>
+                            <constraint firstItem="FaT-Yx-Cv0" firstAttribute="leading" secondItem="dXN-P4-7yH" secondAttribute="trailing" constant="8" id="Sch-c6-aKn"/>
+                            <constraint firstAttribute="trailing" secondItem="oaj-85-lxT" secondAttribute="trailing" constant="-2" id="hpX-mq-kyk"/>
+                            <constraint firstItem="FaT-Yx-Cv0" firstAttribute="leading" secondItem="dXN-P4-7yH" secondAttribute="trailing" constant="8" id="m7c-PC-mOk"/>
+                            <constraint firstItem="FaT-Yx-Cv0" firstAttribute="top" secondItem="mgw-QK-PL4" secondAttribute="bottom" constant="8" id="qWp-HQ-rei"/>
+                            <constraint firstItem="3Xx-Fv-eMx" firstAttribute="leading" secondItem="4i1-M1-LSJ" secondAttribute="leading" id="uAi-zg-eil"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="prDetailsContainerView" destination="3Xx-Fv-eMx" id="gdk-Ux-zJf"/>
+                        <outlet property="prDetailsSegmentedControl" destination="oaj-85-lxT" id="gCi-qx-vmN"/>
+                        <outlet property="prNumberLabel" destination="FaT-Yx-Cv0" id="YZX-NO-4yy"/>
+                        <outlet property="prTitleLabel" destination="dXN-P4-7yH" id="rCu-H9-y0p"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XCK-H0-V7o" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2884" y="91"/>
+        </scene>
+        <!--Conversation Table View Controller-->
+        <scene sceneID="TY6-SJ-Nka">
+            <objects>
+                <tableViewController id="fBq-SP-nOi" customClass="ConversationTableViewController" customModule="PRDiffr" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="3X1-cD-fTC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="dgl-8Y-oCp">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dgl-8Y-oCp" id="mof-9n-DVS">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="fBq-SP-nOi" id="8bC-k9-0Qg"/>
+                            <outlet property="delegate" destination="fBq-SP-nOi" id="4Z3-lu-29J"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S5k-fi-kGZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4303" y="-610"/>
+        </scene>
+        <!--Commit Table View Controller-->
+        <scene sceneID="Ltc-mm-QG7">
+            <objects>
+                <tableViewController id="Cpt-Kn-sfZ" customClass="CommitTableViewController" customModule="PRDiffr" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="yaH-Xc-a1z">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="91o-Ri-TxR">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="91o-Ri-TxR" id="Pp2-m8-Hiw">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Cpt-Kn-sfZ" id="Cy1-9T-6aR"/>
+                            <outlet property="delegate" destination="Cpt-Kn-sfZ" id="2Nc-U6-yPW"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wF2-CB-9BN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4302" y="92"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="RZe-me-8Vy">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZI9-w3-55u" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="eOa-lK-SAJ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eOa-lK-SAJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>

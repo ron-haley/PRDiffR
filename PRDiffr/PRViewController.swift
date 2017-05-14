@@ -14,6 +14,7 @@ class PRViewController: UIViewController {
     let cellIdentifier = "PRTableViewCell"
     var pullRequests: [PullRequest]!
     var pullRequestState: PullRequest.State!
+    var selectedPullRequest: PullRequest?
 
     @IBOutlet weak var prTableView: UITableView!
     @IBOutlet weak var prStatusSegmentedControl: UISegmentedControl!
@@ -38,15 +39,18 @@ class PRViewController: UIViewController {
     }
     
 
-    /*
+
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "PRDetailsSegue" {
+            if let pullRequest = selectedPullRequest,
+                let prDetailsViewController = segue.destination as? PRDetailsViewController {
+                prDetailsViewController.pullRequest = pullRequest
+            }
+        }
     }
-    */
+
     @IBAction func prStatusChanged(_ sender: Any) {
         switch prStatusSegmentedControl.selectedSegmentIndex {
         case 0:
@@ -85,6 +89,11 @@ extension PRViewController: UITableViewDataSource, UITableViewDelegate {
         let pullRequest = pullRequests[indexPath.row]
         cell.configureCell(cell: pullRequest.prCell())
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedPullRequest = pullRequests[indexPath.row]
+        performSegue(withIdentifier: "PRDetailsSegue", sender: self)
     }
 }
 
