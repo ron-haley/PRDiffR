@@ -14,6 +14,7 @@ class PRDiffTableViewController: UITableViewController {
     // MARK: Properties
     var pullRequest: PullRequest?
     var activityIndicator: ActivityIndicator?
+    var diffObjects: [DiffObject]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,7 @@ class PRDiffTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        diffObjects = [DiffObject]()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -118,9 +120,10 @@ extension PRDiffTableViewController {
                 switch response.result {
                 case .success:
                     if let data = response.result.value, let utf8Text = String(data: data, encoding: .utf8) {
-//                        let myStrings = utf8Text.components(separatedBy: .newlines)
                         self.activityIndicator?.stopAnimating()
-                        print("Data: \(utf8Text)")
+                        var parser = Parser(utf8Text)
+                        self.diffObjects = parser.buildDiffObject()
+                        print("diffObjects.count: \(self.diffObjects.count)")
                     }
                 case .failure:
                     self.activityIndicator?.stopAnimating()

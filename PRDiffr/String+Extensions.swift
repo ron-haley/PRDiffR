@@ -21,4 +21,8 @@ public extension String {
         dateFormatter.locale = Locale(identifier: "en_US")
         return dateFormatter.date(from: self)
     }
+
+    var trim: String {
+        return self.trimmingCharacters(in: .whitespaces)
+    }
 }

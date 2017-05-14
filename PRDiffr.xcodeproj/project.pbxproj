@@ -10,6 +10,7 @@
 		040305BB1EC81DE900EC1511 /* PRDiffTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040305BA1EC81DE900EC1511 /* PRDiffTableViewController.swift */; };
 		040305BE1EC82DBF00EC1511 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040305BD1EC82DBF00EC1511 /* ActivityIndicator.swift */; };
 		040305C01EC832D200EC1511 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040305BF1EC832D200EC1511 /* AlertController.swift */; };
+		040305C21EC8355600EC1511 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040305C11EC8355600EC1511 /* Parser.swift */; };
 		040CA7E41EC5550C0014D0D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040CA7E31EC5550C0014D0D1 /* AppDelegate.swift */; };
 		040CA7E61EC5550C0014D0D1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040CA7E51EC5550C0014D0D1 /* ViewController.swift */; };
 		040CA7E91EC5550C0014D0D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040CA7E71EC5550C0014D0D1 /* Main.storyboard */; };
@@ -71,6 +72,7 @@
 		040305BA1EC81DE900EC1511 /* PRDiffTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PRDiffTableViewController.swift; sourceTree = "<group>"; };
 		040305BD1EC82DBF00EC1511 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		040305BF1EC832D200EC1511 /* AlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
+		040305C11EC8355600EC1511 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		040CA7E01EC5550C0014D0D1 /* PRDiffr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PRDiffr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		040CA7E31EC5550C0014D0D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		040CA7E51EC5550C0014D0D1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 			children = (
 				040305BD1EC82DBF00EC1511 /* ActivityIndicator.swift */,
 				040305BF1EC832D200EC1511 /* AlertController.swift */,
+				040305C11EC8355600EC1511 /* Parser.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -635,6 +638,7 @@
 				040305BE1EC82DBF00EC1511 /* ActivityIndicator.swift in Sources */,
 				04AB0F501EC7EA13007B84E5 /* CommentTableViewCell.swift in Sources */,
 				044F11C51EC55D94004C7F8D /* Router.swift in Sources */,
+				040305C21EC8355600EC1511 /* Parser.swift in Sources */,
 				04D9322D1EC7772A0054F3A7 /* PRTableViewCell.swift in Sources */,
 				040CA7E41EC5550C0014D0D1 /* AppDelegate.swift in Sources */,
 				048EFDBB1EC64D1F00E554D9 /* User.swift in Sources */,
