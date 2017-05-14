@@ -120,7 +120,9 @@ extension PRViewController {
                 }
             case .failure:
                 self.activityIndicator?.stopAnimating()
-                print("error occurred while fetching data")
+                // TODO: update with error message from response
+                let alert = AlertController.alert("", message: "error occurred while fetching data")
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }

@@ -6,7 +6,6 @@
 //  Copyright © 2017 Ronald Haley. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class ActivityIndicator {
