@@ -414,6 +414,34 @@
             </objects>
             <point key="canvasLocation" x="4301.6000000000004" y="91.304347826086968"/>
         </scene>
+        <!--Diff Table View Controller-->
+        <scene sceneID="BIN-5Y-f8T">
+            <objects>
+                <tableViewController storyboardIdentifier="PRDiffTableViewController" id="ZV3-9R-VwE" customClass="PRDiffTableViewController" customModule="PRDiffr" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" id="7uX-bL-6AX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="60" id="D22-0a-KYr">
+                                <rect key="frame" x="0.0" y="28" width="375" height="60"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="D22-0a-KYr" id="eX1-yd-82P">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ZV3-9R-VwE" id="veF-yY-SEZ"/>
+                            <outlet property="delegate" destination="ZV3-9R-VwE" id="uiY-JR-z5r"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sbq-XA-WNE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4306" y="798"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="RZe-me-8Vy">
             <objects>

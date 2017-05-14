@@ -1,5 +1,5 @@
 //
-//  ConversationTableViewController.swift
+//  PRDiffTableViewController.swift
 //  PRDiffr
 //
 //  Created by Ronald Haley on 5/13/17.
@@ -7,16 +7,13 @@
 //
 
 import UIKit
+import Alamofire
 
-class ConversationTableViewController: UITableViewController {
+class PRDiffTableViewController: UITableViewController {
 
     // MARK: Properties
-    let cellIdentifier = "CommentTableViewCell"
-    var prNumber: Int?
-    var comments: [Comment]!
+    var pullRequest: PullRequest?
     var activityIndicator: ActivityIndicator?
-
-    @IBOutlet weak var emptyLabelView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,13 +23,12 @@ class ConversationTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        comments = [Comment]()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
 
-        fetchComments()
+        fetchPRDiffs()
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,26 +40,23 @@ class ConversationTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return comments.count
+        return 0
     }
 
+    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier,
-                                                     for: indexPath) as? CommentTableViewCell
-            else {
-                return UITableViewCell()
-        }
-        
-        let comment = comments[indexPath.row]
-        cell.configureCell(commentCell: comment.commentCell())
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+
+        // Configure the cell...
+
         return cell
     }
+    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -112,33 +105,27 @@ class ConversationTableViewController: UITableViewController {
 
 }
 
-extension ConversationTableViewController {
-    fileprivate func fetchComments() {
-        guard let number = prNumber else { return }
+extension PRDiffTableViewController {
+    fileprivate func fetchPRDiffs() {
+        guard let diffUrl = pullRequest?.diffUrl else { return }
 
-        comments.removeAll()
-        emptyLabelView.isHidden = true
-        activityIndicator = ActivityIndicator(title: "Loading Comments", center: view.center)
+        activityIndicator = ActivityIndicator(title: "Loading Diffs", center: view.center)
         view.addSubview(activityIndicator!.getActivityIndicatorView())
         activityIndicator?.startAnimating()
-
-        Comment.getComments(prNumber: number) { response in
-            switch response.result {
-            case .success:
-                if let comments = response.result.value {
-                    self.activityIndicator?.stopAnimating()
-
-                    if comments.isEmpty {
-                        self.emptyLabelView.isHidden = false
-                    } else {
-                        self.comments = comments
-                        self.tableView.reloadData()
+        
+        Alamofire.request(diffUrl)
+            .responseData { response in
+                switch response.result {
+                case .success:
+                    if let data = response.result.value, let utf8Text = String(data: data, encoding: .utf8) {
+//                        let myStrings = utf8Text.components(separatedBy: .newlines)
+                        self.activityIndicator?.stopAnimating()
+                        print("Data: \(utf8Text)")
                     }
+                case .failure:
+                    self.activityIndicator?.stopAnimating()
+                    print("error occurred while fetching data")
                 }
-            case .failure:
-                self.activityIndicator?.stopAnimating()
-                print("error occurred while fetching data")
             }
-        }
     }
 }

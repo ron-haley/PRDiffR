@@ -15,6 +15,7 @@ class PRViewController: UIViewController {
     var pullRequests: [PullRequest]!
     var pullRequestState: PullRequest.State!
     var selectedPullRequest: PullRequest?
+    var activityIndicator: ActivityIndicator?
 
     @IBOutlet weak var prTableView: UITableView!
     @IBOutlet weak var prStatusSegmentedControl: UISegmentedControl!
@@ -103,15 +104,22 @@ extension PRViewController {
     
     fileprivate func fetchPullRequests() {
         let parameters: [String: Any] = ["state": pullRequestState.rawValue]
+
         pullRequests.removeAll()
+        activityIndicator = ActivityIndicator(title: "Pull Requests...", center: view.center)
+        view.addSubview(activityIndicator!.getActivityIndicatorView())
+        activityIndicator?.startAnimating()
+
         PullRequest.getPullRequests(parameters: parameters) { response in
             switch response.result {
             case .success:
                 if let pullRequests = response.result.value {
                     self.pullRequests = pullRequests
+                    self.activityIndicator?.stopAnimating()
                     self.prTableView.reloadData()
                 }
             case .failure:
+                self.activityIndicator?.stopAnimating()
                 print("error occurred while fetching data")
             }
         }

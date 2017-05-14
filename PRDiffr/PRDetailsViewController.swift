@@ -14,6 +14,7 @@ class PRDetailsViewController: UIViewController {
     var pullRequest: PullRequest?
     var conversationViewController: ConversationTableViewController!
     var commitViewController: CommitTableViewController!
+    var diffViewController: PRDiffTableViewController!
 
     var selectedViewController: UITableViewController? {
         didSet {
@@ -34,11 +35,14 @@ class PRDetailsViewController: UIViewController {
         
         guard
             let conversationVC = storyboard?.instantiateViewController(withIdentifier: "ConversationTableViewController") as? ConversationTableViewController,
-            let commitVC = storyboard?.instantiateViewController(withIdentifier: "CommitTableViewController") as? CommitTableViewController
+            let commitVC = storyboard?.instantiateViewController(withIdentifier: "CommitTableViewController") as? CommitTableViewController,
+            let diffVC = storyboard?.instantiateViewController(withIdentifier: "PRDiffTableViewController") as? PRDiffTableViewController
         else { return }
 
         conversationViewController = conversationVC
         commitViewController = commitVC
+        diffViewController = diffVC
+
         setupView()
     }
 
@@ -64,7 +68,7 @@ class PRDetailsViewController: UIViewController {
         case 1:
             selectedViewController = commitViewController
         case 2:
-            break
+            selectedViewController = diffViewController
         default:
             break
         }
@@ -99,8 +103,10 @@ extension PRDetailsViewController {
         else { return }
         
         title = "#\(prNumber)"
+
         conversationViewController.prNumber = prNumber
         commitViewController.prNumber = prNumber
+        diffViewController.pullRequest = pullRequest
 
         prTitleLabel.text = prTitle
         prNumberLabel.text = "#\(prNumber)"

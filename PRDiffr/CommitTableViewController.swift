@@ -14,6 +14,7 @@ class CommitTableViewController: UITableViewController {
     let cellIdentifier = "CommitTableViewCell"
     var prNumber: Int?
     var commits: [Commit]!
+    var activityIndicator: ActivityIndicator?
 
     @IBOutlet weak var emptyLabelView: UIView!
 
@@ -116,12 +117,17 @@ extension CommitTableViewController {
         guard let number = prNumber else { return }
         
         commits.removeAll()
-        self.emptyLabelView.isHidden = true
+        emptyLabelView.isHidden = true
+        activityIndicator = ActivityIndicator(title: "Loading Commits", center: view.center)
+        view.addSubview(activityIndicator!.getActivityIndicatorView())
+        activityIndicator?.startAnimating()
         
         Commit.getCommits(prNumber: number) { response in
             switch response.result {
             case .success:
                 if let commits = response.result.value {
+                    self.activityIndicator?.stopAnimating()
+
                     if commits.isEmpty {
                         self.emptyLabelView.isHidden = false
                     } else {
@@ -130,6 +136,7 @@ extension CommitTableViewController {
                     }
                 }
             case .failure:
+                self.activityIndicator?.stopAnimating()
                 print("error occurred while fetching data")
             }
         }
