@@ -17,10 +17,11 @@ enum Router: URLRequestConvertible {
     
     case getPullRequests([String: Any])
     case getPRComments(Int)
+    case getPRCommits(Int)
     
     var method: HTTPMethod {
         switch self {
-        case .getPullRequests, .getPRComments:
+        case .getPullRequests, .getPRComments, .getPRCommits:
             return .get
         }
     }
@@ -31,6 +32,8 @@ enum Router: URLRequestConvertible {
             return "/repos/\(Router.repoOwner)/\(Router.repo)/pulls"
         case .getPRComments(let prNumber):
             return "/repos/\(Router.repoOwner)/\(Router.repo)/pulls/\(prNumber)/comments"
+        case .getPRCommits(let prNumber):
+            return "/repos/\(Router.repoOwner)/\(Router.repo)/pulls/\(prNumber)/commits"
         }
     }
     
@@ -44,6 +47,8 @@ enum Router: URLRequestConvertible {
         case .getPullRequests(let parameters):
             urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
         case .getPRComments:
+            urlRequest = try URLEncoding.default.encode(urlRequest, with: nil)
+        case .getPRCommits:
             urlRequest = try URLEncoding.default.encode(urlRequest, with: nil)
         }
         

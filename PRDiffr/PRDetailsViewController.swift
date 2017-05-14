@@ -100,6 +100,7 @@ extension PRDetailsViewController {
         
         title = "#\(prNumber)"
         conversationViewController.prNumber = prNumber
+        commitViewController.prNumber = prNumber
 
         prTitleLabel.text = prTitle
         prNumberLabel.text = "#\(prNumber)"

@@ -51,8 +51,8 @@ final class Comment: ResponseObjectSerializable, ResponseCollectionSerializable 
     required init?(response: HTTPURLResponse, representation: Any) {
         guard
             let representation = representation as? [String: Any]
-            else {
-                return nil
+        else {
+            return nil
         }
 
         if let url = representation["url"] as? String {

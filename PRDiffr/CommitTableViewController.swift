@@ -10,6 +10,13 @@ import UIKit
 
 class CommitTableViewController: UITableViewController {
 
+    // MARK: Properties
+    let cellIdentifier = "CommitTableViewCell"
+    var prNumber: Int?
+    var commits: [Commit]!
+
+    @IBOutlet weak var emptyLabelView: UIView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,6 +25,13 @@ class CommitTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        commits = [Commit]()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super .viewWillAppear(animated)
+
+        fetchCommits()
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,23 +43,26 @@ class CommitTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return commits.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        guard
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier,
+                                                     for: indexPath) as? CommitTableViewCell
+            else {
+                return UITableViewCell()
+        }
+        
+        let commit = commits[indexPath.row]
+        cell.configureCell(commitCell: commit.commitCell())
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -92,4 +109,29 @@ class CommitTableViewController: UITableViewController {
     }
     */
 
+}
+
+extension CommitTableViewController {
+    fileprivate func fetchCommits() {
+        guard let number = prNumber else { return }
+        
+        commits.removeAll()
+        self.emptyLabelView.isHidden = true
+        
+        Commit.getCommits(prNumber: number) { response in
+            switch response.result {
+            case .success:
+                if let commits = response.result.value {
+                    if commits.isEmpty {
+                        self.emptyLabelView.isHidden = false
+                    } else {
+                        self.commits = commits
+                        self.tableView.reloadData()
+                    }
+                }
+            case .failure:
+                print("error occurred while fetching data")
+            }
+        }
+    }
 }
