@@ -18,6 +18,15 @@ struct Parser {
         self.position = 0
     }
 
+    /*
+        This method takes the diff file returned from GitHub
+        and creates `DiffObject`s.
+     
+        - TODO: Refactor - this methods should be responsible for
+                building DiffObject's `[DiffCell]` attr which will
+                improve performance and also allow the
+                `lineChanges` attr to deleted.
+    */
     mutating func buildDiffObject() -> [DiffObject] {
         var diffObjects = [DiffObject]()
 

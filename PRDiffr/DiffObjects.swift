@@ -60,6 +60,14 @@ struct DiffObject {
         return ((numbers[0], numbers[1]), (numbers[2], numbers[3]))
     }
     
+    /*
+        This is the first iteration of the algorithm to build DiffCell objects
+        which contain the data necessary for the PRDiffTableCell.
+     
+        - Note: This needs refactoring; due to time contraints it will have to
+                remain. It will also me moved to Parse#buildDiffObject allowing
+                the attr lineChanges to be removed an improve performace.
+    */
     mutating func buildDiffCells() {
         diffCells.removeAll()
         
