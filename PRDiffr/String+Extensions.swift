@@ -22,7 +22,12 @@ public extension String {
         return dateFormatter.date(from: self)
     }
 
-    var trim: String {
-        return self.trimmingCharacters(in: .whitespaces)
+    var first: String {
+        return self.components(separatedBy: " ")[0]
+    }
+
+    func nthChar(_ n: Int) -> String {
+        if self == "" { return "" }
+        return self.substring(to: index(startIndex, offsetBy: n))
     }
 }

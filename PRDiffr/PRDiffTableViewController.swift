@@ -12,6 +12,8 @@ import Alamofire
 class PRDiffTableViewController: UITableViewController {
 
     // MARK: Properties
+    let cellIdentifier = "PRDiffTableViewCell"
+
     var pullRequest: PullRequest?
     var activityIndicator: ActivityIndicator?
     var diffObjects: [DiffObject]!
@@ -42,23 +44,32 @@ class PRDiffTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return diffObjects.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        let diffOject = diffObjects[section]
+        return diffOject.diffCells.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        guard
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier,
+                                                     for: indexPath) as? PRDiffTableViewCell
+            else {
+                return UITableViewCell()
+        }
 
-        // Configure the cell...
-
+        let diffObject = diffObjects[indexPath.section]
+        cell.configureCell(diffCell: diffObject.diffCells[indexPath.row])
         return cell
     }
-    */
+
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let diffObject = diffObjects[section]
+        return diffObject.fileName
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -111,6 +122,8 @@ extension PRDiffTableViewController {
     fileprivate func fetchPRDiffs() {
         guard let diffUrl = pullRequest?.diffUrl else { return }
 
+        diffObjects.removeAll()
+
         activityIndicator = ActivityIndicator(title: "Loading Diffs", center: view.center)
         view.addSubview(activityIndicator!.getActivityIndicatorView())
         activityIndicator?.startAnimating()
@@ -123,7 +136,8 @@ extension PRDiffTableViewController {
                         self.activityIndicator?.stopAnimating()
                         var parser = Parser(utf8Text)
                         self.diffObjects = parser.buildDiffObject()
-                        print("diffObjects.count: \(self.diffObjects.count)")
+                        
+                        self.tableView.reloadData()
                     }
                 case .failure:
                     self.activityIndicator?.stopAnimating()

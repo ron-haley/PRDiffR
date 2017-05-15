@@ -12,6 +12,18 @@ public extension UIColor {
     static func darkGreen() -> UIColor {
         return hexToUIColor("2C9306")
     }
+
+    static func addedCell() -> UIColor {
+        return hexToUIColor("A5FDAB")
+    }
+
+    static func infoCell() -> UIColor {
+        return hexToUIColor("5886F2")
+    }
+
+    static func removedCell() -> UIColor {
+        return hexToUIColor("FA8AA4")
+    }
     
     /*
             Create UIColor from hex string.
