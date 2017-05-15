@@ -22,6 +22,20 @@ class PRDiffTableViewCell: UITableViewCell {
         // Initialization code
     }
 
+    override func prepareForReuse() {
+        super .prepareForReuse()
+
+        oldLineNumberLabel.text = nil
+        oldLineNumberLabel.backgroundColor = UIColor.white
+        oldTextLabel.text = nil
+        oldTextLabel.backgroundColor = UIColor.white
+
+        newLineNumberLabel.text = nil
+        newLineNumberLabel.backgroundColor = UIColor.white
+        newTextlabel.text = nil
+        newTextlabel.backgroundColor = UIColor.white
+    }
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

@@ -19,6 +19,14 @@ class CommentTableViewCell: UITableViewCell {
         // Initialization code
     }
 
+    override func prepareForReuse() {
+        super .prepareForReuse()
+
+        userNameLabel.text = nil
+        dateLabel.text = nil
+        bodyLabel.text = nil
+    }
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

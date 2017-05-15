@@ -118,7 +118,7 @@ struct DiffObject {
 
     func addedCell(text: String, lineNumber: Int) -> DiffCell {
         var diffCell = DiffCell(type: .diff)
-        diffCell.oldCell = (nil, nil, UIColor.lightGray)
+        diffCell.oldCell = (nil, nil, UIColor.emptyCell())
         diffCell.newCell = (lineNumber, text, UIColor.addedCell())
 
         return diffCell

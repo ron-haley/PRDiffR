@@ -24,6 +24,10 @@ public extension UIColor {
     static func removedCell() -> UIColor {
         return hexToUIColor("FA8AA4")
     }
+
+    static func emptyCell() -> UIColor {
+        return hexToUIColor("E2E2E2")
+    }
     
     /*
             Create UIColor from hex string.
