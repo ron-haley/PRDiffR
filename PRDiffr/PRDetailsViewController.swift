@@ -50,25 +50,15 @@ class PRDetailsViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     @IBAction func prDetailsChanged(_ sender: Any) {
         switch prDetailsSegmentedControl.selectedSegmentIndex {
         case 0:
-            selectedViewController = conversationViewController
+            selectedViewController = diffViewController
         case 1:
             selectedViewController = commitViewController
         case 2:
-            selectedViewController = diffViewController
+            selectedViewController = conversationViewController
         default:
             break
         }
@@ -111,6 +101,6 @@ extension PRDetailsViewController {
         prTitleLabel.text = prTitle
         prNumberLabel.text = "#\(prNumber)"
 
-        selectedViewController = conversationViewController
+        selectedViewController = diffViewController
     }
 }

@@ -22,6 +22,7 @@
 		044F11C71EC55FBD004C7F8D /* ResponseObjectSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F11C61EC55FBD004C7F8D /* ResponseObjectSerializable.swift */; };
 		044F11C91EC56312004C7F8D /* ResponseCollectionSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F11C81EC56312004C7F8D /* ResponseCollectionSerializable.swift */; };
 		044F11CB1EC5679D004C7F8D /* BackendError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F11CA1EC5679D004C7F8D /* BackendError.swift */; };
+		046A0A171EC9699800501EC1 /* DiffObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046A0A161EC9699800501EC1 /* DiffObjects.swift */; };
 		048EFDBB1EC64D1F00E554D9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EFDBA1EC64D1F00E554D9 /* User.swift */; };
 		048EFDBD1EC655F100E554D9 /* PullRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EFDBC1EC655F100E554D9 /* PullRequest.swift */; };
 		048EFDC01EC65B3300E554D9 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EFDBF1EC65B3300E554D9 /* Date+Extensions.swift */; };
@@ -91,6 +92,7 @@
 		044F11C61EC55FBD004C7F8D /* ResponseObjectSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseObjectSerializable.swift; sourceTree = "<group>"; };
 		044F11C81EC56312004C7F8D /* ResponseCollectionSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseCollectionSerializable.swift; sourceTree = "<group>"; };
 		044F11CA1EC5679D004C7F8D /* BackendError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackendError.swift; sourceTree = "<group>"; };
+		046A0A161EC9699800501EC1 /* DiffObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiffObjects.swift; sourceTree = "<group>"; };
 		048EFDBA1EC64D1F00E554D9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		048EFDBC1EC655F100E554D9 /* PullRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullRequest.swift; sourceTree = "<group>"; };
 		048EFDBF1EC65B3300E554D9 /* Date+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 				04AB0F511EC7FB00007B84E5 /* Commit.swift */,
 				048EFDBC1EC655F100E554D9 /* PullRequest.swift */,
 				048EFDBA1EC64D1F00E554D9 /* User.swift */,
+				046A0A161EC9699800501EC1 /* DiffObjects.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -634,6 +637,7 @@
 				04D932311EC7BA320054F3A7 /* PRViewController.swift in Sources */,
 				044F11C91EC56312004C7F8D /* ResponseCollectionSerializable.swift in Sources */,
 				040305C01EC832D200EC1511 /* AlertController.swift in Sources */,
+				046A0A171EC9699800501EC1 /* DiffObjects.swift in Sources */,
 				044F11CB1EC5679D004C7F8D /* BackendError.swift in Sources */,
 				04AB0F521EC7FB00007B84E5 /* Commit.swift in Sources */,
 				04AB0F4C1EC7D397007B84E5 /* CommitTableViewController.swift in Sources */,

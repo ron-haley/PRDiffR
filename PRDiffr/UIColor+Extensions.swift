@@ -22,7 +22,7 @@ public extension UIColor {
     }
 
     static func removedCell() -> UIColor {
-        return hexToUIColor("FA8AA4")
+        return hexToUIColor("FC9F9F")
     }
 
     static func emptyCell() -> UIColor {
