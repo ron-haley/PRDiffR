@@ -79,6 +79,8 @@ struct DiffObject {
                     let newChangeCount = diffLines.1.1
                     var newIndex = index + 1
                     var blackListIndex = [Int]()
+
+                    if newChangeCount == 0 { return }
                     
                     for _ in (index + 1)...(index + newChangeCount) {
                         let line = lineChanges[newIndex]
@@ -102,6 +104,11 @@ struct DiffObject {
                             var tempIndex = newIndex + 1
                             var flag = true
                             while flag {
+                                if tempIndex == lineChanges.count {
+                                    flag = false
+                                    return
+                                }
+
                                 if !blackListIndex.contains(tempIndex) {
                                     if getLineType(text: lineChanges[tempIndex]) == .added {
                                         flag = false
