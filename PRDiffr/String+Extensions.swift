@@ -22,6 +22,11 @@ public extension String {
         return dateFormatter.date(from: self)
     }
 
+    var containsDiffGit: Bool {
+        let diffGit = "diff --git"
+        return self.contains(diffGit)
+    }
+
     var first: String {
         return self.components(separatedBy: " ")[0]
     }

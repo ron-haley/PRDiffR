@@ -31,14 +31,21 @@ struct Parser {
         var diffObjects = [DiffObject]()
 
         while position < results.count {
-            if isBeginningOfDiff(position: position) {
+            if results[position].containsDiffGit {
+                // Create DiffObject
                 var diffObject = DiffObject()
 
-                // Get file Name
-                position += 3
-                diffObject.fileName = getFileName(string: results[position])
+                // Grab headers
+                var tempCounter = position
+                while results[tempCounter].nthChar(2) != "@@" {
+                    tempCounter += 1
+                }
 
-                while position + 1 < results.count && !isBeginningOfDiff(position: position + 1) {
+                // Get file Name
+                position = tempCounter - 1
+                diffObject.fileName = getFileName(position: position)
+
+                while position + 1 < results.count && !results[position + 1].containsDiffGit {
                     position += 1
                     diffObject.lineChanges.append(results[position])
                 }
@@ -52,12 +59,15 @@ struct Parser {
         return diffObjects
     }
 
-    func isBeginningOfDiff(position: Int) -> Bool {
-        return results[position].contains("diff --git")
+    func getFileName(position: Int) -> String {
+        if results[position].contains("/dev/null") {
+            return fileName(string: results[position - 1])
+        } else {
+            return fileName(string: results[position])
+        }
     }
 
-    func getFileName(string: String) -> String {
-        let offset = 6
+    func fileName(string: String) -> String {        let offset = 6
         let index = string.index(string.startIndex, offsetBy: offset)
         return string.substring(from: index)
     }
