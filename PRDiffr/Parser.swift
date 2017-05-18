@@ -11,11 +11,9 @@ import UIKit
 
 struct Parser {
     let results: [String]
-    var position: Int
 
     init(_ diffs: String) {
         self.results = diffs.components(separatedBy: .newlines)
-        self.position = 0
     }
 
     /*
@@ -29,38 +27,48 @@ struct Parser {
     */
     mutating func buildDiffObject() -> [DiffObject] {
         var diffObjects = [DiffObject]()
+        var index = 0
 
-        while position < results.count {
-            if results[position].containsDiffGit {
+        while index < results.count {
+            if results[index].containsDiffGit {
                 // Determine DiffFile & Create DiffObject
-                let diffFile = getDiffFile(index: position + 1)
+                let diffFile = getDiffFile(index: index + 1)
                 var diffObject = DiffObject(diffFile: diffFile)
 
                 // Determine position of file names
-                while results[position].nthChar(2) != "@@" {
-                    position += 1
+                while results[index].nthChar(2) != "@@" {
+                    index += 1
                 }
 
                 // Get file Name
-                position -= 1
-                diffObject.fileName = getFileName(index: position)
+                index -= 1
+                diffObject.fileName = getFileName(index: index)
 
-                while position + 1 < results.count && !results[position + 1].containsDiffGit {
-                    position += 1
-                    if diffFile == .new && results[position] == "" {
+                while index + 1 < results.count && !results[index + 1].containsDiffGit {
+                    index += 1
+                    if diffFile == .new && results[index] == "" {
                         continue
                     } else {
-                        diffObject.lineChanges.append(results[position])
+                        diffObject.lineChanges.append(results[index])
                     }
                 }
                 
                 diffObject.buildDiffCells()
                 diffObjects.append(diffObject)
-                position += 1
+                index += 1
             }
         }
 
         return diffObjects
+    }
+
+    func getDiffData(string: String) -> ((Int, Int), (Int, Int))? {
+        let numbers = string.components(separatedBy: CharacterSet.decimalDigits.inverted)
+            .filter { $0 != "" }
+            .map { Int($0)! }
+        
+        guard numbers.count == 4 else { return nil }
+        return ((numbers[0], numbers[1]), (numbers[2], numbers[3]))
     }
 
     func getDiffFile(index: Int) -> DiffFile {
@@ -85,5 +93,20 @@ struct Parser {
         let offset = 6
         let index = string.index(string.startIndex, offsetBy: offset)
         return string.substring(from: index)
+    }
+
+    func getLineType(text: String) -> DiffLineType {
+        let char = text.nthChar(1)
+        
+        switch char {
+        case "+":
+            return .added
+        case "@":
+            return .info
+        case "-":
+            return .removed
+        default:
+            return .same
+        }
     }
 }
