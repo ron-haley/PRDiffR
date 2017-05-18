@@ -32,22 +32,26 @@ struct Parser {
 
         while position < results.count {
             if results[position].containsDiffGit {
-                // Create DiffObject
-                var diffObject = DiffObject()
+                // Determine DiffFile & Create DiffObject
+                let diffFile = getDiffFile(index: position + 1)
+                var diffObject = DiffObject(diffFile: diffFile)
 
-                // Grab headers
-                var tempCounter = position
-                while results[tempCounter].nthChar(2) != "@@" {
-                    tempCounter += 1
+                // Determine position of file names
+                while results[position].nthChar(2) != "@@" {
+                    position += 1
                 }
 
                 // Get file Name
-                position = tempCounter - 1
-                diffObject.fileName = getFileName(position: position)
+                position -= 1
+                diffObject.fileName = getFileName(index: position)
 
                 while position + 1 < results.count && !results[position + 1].containsDiffGit {
                     position += 1
-                    diffObject.lineChanges.append(results[position])
+                    if diffFile == .new && results[position] == "" {
+                        continue
+                    } else {
+                        diffObject.lineChanges.append(results[position])
+                    }
                 }
                 
                 diffObject.buildDiffCells()
@@ -59,15 +63,26 @@ struct Parser {
         return diffObjects
     }
 
-    func getFileName(position: Int) -> String {
-        if results[position].contains("/dev/null") {
-            return fileName(string: results[position - 1])
+    func getDiffFile(index: Int) -> DiffFile {
+        if results[index].contains("new file") {
+            return .new
+        } else if results[index].contains("deleted file") {
+            return .deleted
         } else {
-            return fileName(string: results[position])
+            return .same
         }
     }
 
-    func fileName(string: String) -> String {        let offset = 6
+    func getFileName(index: Int) -> String {
+        if results[index].contains("/dev/null") {
+            return fileName(string: results[index - 1])
+        } else {
+            return fileName(string: results[index])
+        }
+    }
+
+    func fileName(string: String) -> String {
+        let offset = 6
         let index = string.index(string.startIndex, offsetBy: offset)
         return string.substring(from: index)
     }
