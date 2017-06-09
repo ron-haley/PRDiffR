@@ -9,6 +9,12 @@
 import Foundation
 import UIKit
 
+enum DiffFile {
+    case new
+    case deleted
+    case same
+}
+
 enum DiffLineType {
     case info
     case added
@@ -26,14 +32,15 @@ struct DiffCell {
 
 struct DiffObject {
     var fileName: String?
-    var lineNumbers: [((Int, Int), (Int, Int))]
-    var lineChanges: [String]
+//    var lineNumbers: [((Int, Int), (Int, Int))]
     var diffCells: [DiffCell]
+    var diffFile: DiffFile
+    var lineChanges: [String]
     
-    init() {
-        self.lineChanges = [String]()
-        self.lineNumbers = [((Int, Int), (Int, Int))]()
+    init(diffFile: DiffFile) {
         self.diffCells = [DiffCell]()
+        self.diffFile = diffFile
+        self.lineChanges = [String]()
     }
     
     func getLineType(text: String) -> DiffLineType {
@@ -76,53 +83,68 @@ struct DiffObject {
                 if let diffLines = getDiffLines(string: lineChange) {
                     var oldLineNumber = diffLines.0.0
                     var newLineNumber = diffLines.1.0
-                    let newChangeCount = diffLines.1.1
                     var newIndex = index + 1
                     var blackListIndex = [Int]()
+
+                    // Determine max range
+                    var maxLines = 0
+                    switch diffFile {
+                    case .new, .same:
+                        maxLines = diffLines.1.1
+                    case .deleted:
+                        maxLines = diffLines.0.1
+                    }
                     
-                    for _ in (index + 1)...(index + newChangeCount) {
+                    if maxLines == 0 { return }
+                    
+                    for _ in (index + 1)...(index + maxLines) {
                         let line = lineChanges[newIndex]
                         
                         switch getLineType(text: line) {
                         case .added:
                             if !blackListIndex.contains(newIndex) {
-                                let diffCell = addedCell(text: line, lineNumber: newLineNumber)
-                                diffCells.append(diffCell)
+                                addedCell(text: line, lineNumber: newLineNumber)
                                 newLineNumber += 1
                             }
                         case .same:
-                            let diffCell = unchangedCell(text: line,
-                                                         oldLineNumber: oldLineNumber,
-                                                         newLineNumber: newLineNumber)
-                            diffCells.append(diffCell)
+                            unchangedCell(text: line, oldLineNumber: oldLineNumber, newLineNumber: newLineNumber)
                             oldLineNumber += 1
                             newLineNumber += 1
                         case .removed:
                             // Keep line
-                            var tempIndex = newIndex + 1
-                            var flag = true
-                            while flag {
-                                if !blackListIndex.contains(tempIndex) {
-                                    if getLineType(text: lineChanges[tempIndex]) == .added {
+                            if diffFile == .deleted {
+                                deletedCell(oldText: line, oldLineNumber: oldLineNumber)
+                                oldLineNumber += 1
+                            } else {
+                                var tempIndex = newIndex + 1
+                                var flag = true
+                                while flag {
+                                    if tempIndex == lineChanges.count {
                                         flag = false
+                                        return
+                                    }
+                                    
+                                    if !blackListIndex.contains(tempIndex) {
+                                        if getLineType(text: lineChanges[tempIndex]) == .added {
+                                            flag = false
+                                        } else {
+                                            tempIndex += 1
+                                        }
                                     } else {
                                         tempIndex += 1
                                     }
-                                } else {
-                                    tempIndex += 1
                                 }
+                                
+                                blackListIndex.append(tempIndex)
+                                let addedLine = lineChanges[tempIndex]
+                                removedCell(oldText: line,
+                                                           oldLineNumber: oldLineNumber,
+                                                           newText: addedLine,
+                                                           newLineNumber: newLineNumber)
+                                
+                                oldLineNumber += 1
+                                newLineNumber += 1
                             }
-                            
-                            blackListIndex.append(tempIndex)
-                            let addedLine = lineChanges[tempIndex]
-                            let diffCell = removedCell(oldText: line,
-                                                       oldLineNumber: oldLineNumber,
-                                                       newText: addedLine,
-                                                       newLineNumber: newLineNumber)
-                            
-                            diffCells.append(diffCell)
-                            oldLineNumber += 1
-                            newLineNumber += 1
                         default:
                             break
                         }
@@ -134,27 +156,35 @@ struct DiffObject {
         }
     }
     
-    func addedCell(text: String, lineNumber: Int) -> DiffCell {
+    mutating func addedCell(text: String, lineNumber: Int) {
         var diffCell = DiffCell()
         diffCell.oldCell = (nil, nil, UIColor.emptyCell())
         diffCell.newCell = (lineNumber, text, UIColor.addedCell())
         
-        return diffCell
+        diffCells.append(diffCell)
+    }
+
+    mutating func deletedCell(oldText: String, oldLineNumber: Int) {
+        var diffCell = DiffCell()
+        diffCell.oldCell = (oldLineNumber, oldText, UIColor.removedCell())
+        diffCell.newCell = (nil, nil, UIColor.emptyCell())
+        
+        diffCells.append(diffCell)
     }
     
-    func removedCell(oldText: String, oldLineNumber: Int, newText: String, newLineNumber: Int) -> DiffCell {
+    mutating func removedCell(oldText: String, oldLineNumber: Int, newText: String, newLineNumber: Int) {
         var diffCell = DiffCell()
         diffCell.oldCell = (oldLineNumber, oldText, UIColor.removedCell())
         diffCell.newCell = (newLineNumber, newText, UIColor.addedCell())
         
-        return diffCell
+        diffCells.append(diffCell)
     }
     
-    func unchangedCell(text: String, oldLineNumber: Int, newLineNumber: Int) -> DiffCell {
+    mutating func unchangedCell(text: String, oldLineNumber: Int, newLineNumber: Int) {
         var diffCell = DiffCell()
         diffCell.oldCell = (oldLineNumber, text, UIColor.white)
         diffCell.newCell = (newLineNumber, text, UIColor.white)
         
-        return diffCell
+        diffCells.append(diffCell)
     }
 }
