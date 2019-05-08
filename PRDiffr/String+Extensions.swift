@@ -28,7 +28,8 @@ public extension String {
     }
 
     var first: String {
-        return self.components(separatedBy: " ")[0]
+        return String(self.characters.dropFirst())
+//        return self.components(separatedBy: " ")[0]
     }
 
     func nthChar(_ n: Int) -> String {
