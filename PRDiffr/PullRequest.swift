@@ -191,4 +191,5 @@ final class PullRequest: ResponseObjectSerializable, ResponseCollectionSerializa
                 completionHandler(response)
             }
     }
+
 }
