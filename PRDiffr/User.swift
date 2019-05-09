@@ -174,4 +174,5 @@ final class User: ResponseObjectSerializable, ResponseCollectionSerializable {
             }
         }
     }
+
 }
