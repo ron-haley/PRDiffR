@@ -86,4 +86,5 @@ final class Commit: ResponseObjectSerializable, ResponseCollectionSerializable {
                 completionHandler(response)
         }
     }
+
 }
