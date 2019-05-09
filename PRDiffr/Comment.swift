@@ -130,4 +130,5 @@ final class Comment: ResponseObjectSerializable, ResponseCollectionSerializable 
                 completionHandler(response)
             }
     }
+
 }
